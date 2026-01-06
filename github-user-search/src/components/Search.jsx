@@ -33,50 +33,25 @@ function Search() {
   return (
     <div className="p-4 max-w-xl mx-auto">
       <form onSubmit={handleSearch} className="flex flex-col gap-3">
-        <input
-          type="text"
-          placeholder="Username"
-          className="border p-2 rounded"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Location"
-          className="border p-2 rounded"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Min Repositories"
-          className="border p-2 rounded"
-          value={minRepos}
-          onChange={(e) => setMinRepos(e.target.value)}
-        />
+        <input type="text" placeholder="Username" value={username} onChange={(e)=>setUsername(e.target.value)} className="border p-2 rounded" />
+        <input type="text" placeholder="Location" value={location} onChange={(e)=>setLocation(e.target.value)} className="border p-2 rounded" />
+        <input type="number" placeholder="Min Repositories" value={minRepos} onChange={(e)=>setMinRepos(e.target.value)} className="border p-2 rounded" />
         <button className="bg-black text-white p-2 rounded">Search</button>
       </form>
 
       {loading && <p>Loading...</p>}
 
       <div className="mt-4 flex flex-col gap-3">
-        {users.map((user) => (
+        {users.map(user => (
           <div key={user.id} className="border p-3 rounded flex items-center gap-3">
             <img src={user.avatar_url} className="w-12 h-12 rounded-full" />
-            <a href={user.html_url} target="_blank" className="text-blue-600">
-              {user.login}
-            </a>
+            <a href={user.html_url} target="_blank" className="text-blue-600">{user.login}</a>
           </div>
         ))}
       </div>
 
       {users.length > 0 && !loading && (
-        <button
-          onClick={loadMore}
-          className="mt-4 bg-gray-800 text-white p-2 rounded w-full"
-        >
-          Load More
-        </button>
+        <button onClick={loadMore} className="mt-4 bg-gray-800 text-white p-2 rounded w-full">Load More</button>
       )}
     </div>
   );

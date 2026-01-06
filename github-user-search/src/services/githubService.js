@@ -15,7 +15,7 @@ export const searchUsers = async ({ username, location, minRepos, page = 1 }) =>
       `${BASE_URL}?q=${encodeURIComponent(query)}&page=${page}&per_page=30`
     );
 
-    return response.data; // data.items فيها المستخدمين
+    return response.data; // اللي فيه items = array من المستخدمين
   } catch (error) {
     console.error("Error fetching users:", error);
     return { items: [] };
