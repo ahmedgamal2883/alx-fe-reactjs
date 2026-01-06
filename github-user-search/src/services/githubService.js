@@ -1,11 +1,8 @@
 import axios from 'axios';
 
-export const fetchUser = async (username) => {
-  try {
-    const res = await axios.get(`https://api.github.com/users/${username}`);
-    return res.data;
-  } catch (err) {
-    console.error(err);
-    return null;
-  }
+export const fetchUserData = async (username) => {
+  const response = await axios.get(
+    `https://api.github.com/users/${username}`
+  );
+  return response.data;
 };
