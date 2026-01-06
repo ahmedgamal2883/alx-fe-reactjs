@@ -1,27 +1,23 @@
+// src/services/githubService.js
 import axios from "axios";
 
-export const fetchAdvancedUsers = async (
-  username,
-  location,
-  minRepos,
-  page = 1
-) => {
-  let query = "";
+const BASE_URL = "https://api.github.com/search/users";
 
-  if (username) query += `${username} `;
-  if (location) query += `location:${location} `;
-  if (minRepos) query += `repos:>=${minRepos}`;
+export const searchUsers = async ({ username, location, minRepos, page = 1 }) => {
+  try {
+    let query = "";
 
-  const response = await axios.get(
-    `https://api.github.com/search/users`,
-    {
-      params: {
-        q: query,
-        page: page,
-        per_page: 5
-      }
-    }
-  );
+    if (username) query += `${username} in:login`;
+    if (location) query += ` location:${location}`;
+    if (minRepos) query += ` repos:>=${minRepos}`;
 
-  return response.data;
+    const response = await axios.get(
+      `${BASE_URL}?q=${encodeURIComponent(query)}&page=${page}&per_page=30`
+    );
+
+    return response.data; // data.items فيها المستخدمين
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    return { items: [] };
+  }
 };
